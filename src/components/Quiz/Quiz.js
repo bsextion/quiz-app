@@ -13,20 +13,48 @@ export const Quiz = () => {
   // useeffect to grab list of questions and corresponding answers (for now only grab 10)
   //Add timer
 
-  const [currentQuestion, setCurrentQuestion] = useState(1);
+  const [currentQuestion, setCurrentQuestion] = useState(0);
   const [totalQuestion, setTotalQuestion] = useState(0);
   const [quizData, setQuizData] = useState({});
-  const [selectedAnswer, setSelectedAnswer] = useState();
+
+  //update selected answer
+  const onUpdateAnswer = (selected) => {
+    const currentQuestionData = quizData[currentQuestion];
+
+    //update selected answer in current question
+    const updatedQuestionData = {
+      ...currentQuestionData,
+      selected_answer: selected,
+    };
+
+    // update quiz data with current question
+    setQuizData((prev) => {
+      const newQuizData = [...prev];
+      newQuizData[currentQuestion] = updatedQuestionData;
+      return newQuizData;
+    });
+    console.log("Selected: ", selected);
+    console.log("Updated Question Data: ", updatedQuestionData);
+  };
+
+  //update selected answer to null
+  const onUpdateNext = () => {
+    //increment currentQuestion
+    setCurrentQuestion((prev) => prev + 1);
+
+  };
+
+  const onSubmit = () => {};
 
   useEffect(() => {
-     axios
+    axios
       .get("https://opentdb.com/api.php?amount=10&type=multiple")
       .then((res) => {
         const transformedData = res.data.results.map((item) => ({
           question: item.question,
           correct_answer: item.correct_answer,
           answers: _.shuffle([...item.incorrect_answers, item.correct_answer]),
-          selectedAnswer,
+          selected_answer: null,
         }));
         setQuizData(transformedData);
         setTotalQuestion(transformedData.length);
@@ -39,11 +67,11 @@ export const Quiz = () => {
   return (
     <QuizContext.Provider
       value={{
-        selectedAnswer,
-        setSelectedAnswer,
         currentQuestion,
-        setCurrentQuestion,
         totalQuestion,
+        onUpdateAnswer,
+        onUpdateNext,
+        setCurrentQuestion,
         quizData,
       }}
     >

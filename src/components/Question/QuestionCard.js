@@ -2,8 +2,8 @@ import React from "react";
 import { Card, ListGroup } from "react-bootstrap";
 import { QuizContext } from "../Quiz/Quiz";
 
-export const QuestionCard = ({ questionData }) => {
-  const { question, answers, correct_answer } = questionData;
+export const QuestionCard = ({ questionData, onUpdateAnswer }) => {
+  const { question, answers } = questionData;
   return (
     <Card>
       <Card.Body>
@@ -13,7 +13,7 @@ export const QuestionCard = ({ questionData }) => {
         </Card.Subtitle>
         <ListGroup className="list-group" numbered>
           {answers.map((answer, index) => (
-            <ListGroup.Item key={index} action onClick={() => {console.log('Clicked')}}>{answer}</ListGroup.Item>
+            <ListGroup.Item key={index} action onClick={() => onUpdateAnswer(answer)}>{answer}</ListGroup.Item>
           ))}
         </ListGroup>
       </Card.Body>

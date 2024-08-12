@@ -9,7 +9,7 @@ export const QuizHeader = () => {
     <>
       <Modal.Header>
         <Modal.Title>
-          Question No.{currentQuestion} of {totalQuestion}
+          Question No.{currentQuestion + 1} of {totalQuestion}
         </Modal.Title>
       </Modal.Header>
     </>
