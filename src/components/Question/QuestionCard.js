@@ -1,8 +1,8 @@
 import React from "react";
 import { Card, ListGroup } from "react-bootstrap";
-import { QuizContext } from "../Quiz/Quiz";
+import  {QuizContext}  from '../Quiz/Quiz';
 
-export const QuestionCard = ({ questionData, onUpdateAnswer }) => {
+export default function({ questionData, onUpdateAnswer }) {
   const { question, answers } = questionData;
   return (
     <Card>

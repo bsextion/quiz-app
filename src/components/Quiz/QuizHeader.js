@@ -1,8 +1,9 @@
 import React from "react";
 import Modal from "react-bootstrap/Modal";
-import { QuizContext } from "./Quiz";
+import  {QuizContext}  from '../Quiz/Quiz';
+import { Badge } from "react-bootstrap";
 
-export const QuizHeader = () => {
+export default function QuizHeader () {
   const { currentQuestion, totalQuestion } = React.useContext(QuizContext);
 
   return (

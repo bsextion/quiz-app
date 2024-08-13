@@ -1,9 +1,8 @@
-import { Quiz } from "@/components/Quiz/Quiz";
+
 import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import { PiStudentBold } from "react-icons/pi";
-import { Nav, Navbar, NavDropdown } from "react-bootstrap";
+import { Navbar } from "react-bootstrap";
+import Quiz from "@/components/Quiz/Quiz";
 
 export default function Home() {
   return (

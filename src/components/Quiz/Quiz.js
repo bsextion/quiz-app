@@ -1,14 +1,16 @@
 import React, { createContext, useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal";
-import { QuizFooter } from "./QuizFooter";
-import { QuizHeader } from "./QuizHeader";
+import  QuizFooter  from "./QuizFooter";
+import  QuizHeader  from "./QuizHeader";
 import axios from "axios";
 import _ from "lodash";
-import { Question } from "../Question/Question";
+import  Question  from "../Question/Question";
+import  Results  from "../Results/Results";
+import { decode } from 'html-entities';
 
 export const QuizContext = createContext();
 
-export const Quiz = () => {
+export default function Quiz() {
   //context created here - pass down current question and total question to quiz components and question components
   // useeffect to grab list of questions and corresponding answers (for now only grab 10)
   //Add timer
@@ -16,6 +18,7 @@ export const Quiz = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [totalQuestion, setTotalQuestion] = useState(0);
   const [quizData, setQuizData] = useState({});
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   //update selected answer
   const onUpdateAnswer = (selected) => {
@@ -44,16 +47,19 @@ export const Quiz = () => {
 
   };
 
-  const onSubmit = () => {};
+  const onSubmit = () => {
+    setIsSubmitted(true)
+    console.log("Is submitted? ", isSubmitted)
+  };
 
   useEffect(() => {
     axios
       .get("https://opentdb.com/api.php?amount=10&type=multiple")
       .then((res) => {
         const transformedData = res.data.results.map((item) => ({
-          question: item.question,
-          correct_answer: item.correct_answer,
-          answers: _.shuffle([...item.incorrect_answers, item.correct_answer]),
+          question: decode(item.question),
+          correct_answer: decode(item.correct_answer),
+          answers: _.shuffle(decode([...item.incorrect_answers, item.correct_answer])),
           selected_answer: null,
         }));
         setQuizData(transformedData);
@@ -71,18 +77,20 @@ export const Quiz = () => {
         totalQuestion,
         onUpdateAnswer,
         onUpdateNext,
+        onSubmit,
         setCurrentQuestion,
         quizData,
       }}
     >
       {totalQuestion === 0 ? (
-        <h1>Fetching Quiz Data...</h1>
+        <h1>Fetching Questions...</h1>
       ) : (
+        isSubmitted ? <Results/> :
         <div
           className="modal show"
-          style={{ display: "block", position: "initial", width: "80%" }}
+          style={{ display: "block", position: "initial" }}
         >
-          <Modal.Dialog size="lg">
+          <Modal.Dialog size="xl" centered>
             <QuizHeader />
             <Question />
             <QuizFooter />

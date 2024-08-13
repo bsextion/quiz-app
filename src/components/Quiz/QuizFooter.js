@@ -3,8 +3,8 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import { QuizContext } from "./Quiz";
 
-export const QuizFooter = () => {
-  const { onUpdateNext, currentQuestion, totalQuestion } =
+export default function QuizFooter()  {
+  const { onUpdateNext, onSubmit, currentQuestion, totalQuestion } =
     React.useContext(QuizContext);
 
   const showNext = currentQuestion + 1 === totalQuestion;
@@ -16,7 +16,7 @@ export const QuizFooter = () => {
         <Button variant="primary" onClick={onUpdateNext} disabled={showNext}>
           Next
         </Button>
-        <Button variant="warning" disabled={showSubmit}>Submit</Button>
+        <Button variant="warning" onClick={onSubmit} disabled={showSubmit}>Submit</Button>
       </Modal.Footer>
     </>
   );
