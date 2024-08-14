@@ -1,6 +1,7 @@
 import React from "react";
 import { FaX } from "react-icons/fa6";
-export default function Rows({ data, objKeys }) {
+
+export default function TableRows({ data, objKeys }) {
   return (
     <>
       {data.map((row, rowIndex) => (
@@ -19,7 +20,7 @@ export default function Rows({ data, objKeys }) {
                   className="font-weight-bold text-danger"
                   key={`${rowIndex}-${keyIndex}`}
                 >
-                  {!row["selected_answer"] && <FaX />}
+                  {!row["selected_answer"] && <FaX/>}
                   {row[objKey]}
                 </td>
               )

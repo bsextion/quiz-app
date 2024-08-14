@@ -1,14 +1,11 @@
 
-//Disable next button if no answer is selected - add tooltip on hover
-//Highlight selected answer
-//WARNING MESSAGE IF USER CLICKS NEXT WITHOUT SELECTING ANSWER
+Phase 1
+- [x] Highlight selected answer for question
+- [x] Add Previous button before Next button and add functionality
+- [ ] Add Pagination - should show bubbles - blue outline if answered, gray if not answered
+- [ ] Hide Submit until last question or all answers have been answered (js filter)
+- [ ] Warning message: You have questions that have not been answered. Are you sure you wish to submit? (js function to get list of unanswered questions)
 
 
-
-
-Results (Table) - Score (percentage round to nearest whole number)
-    Result Row
-    Row headers - Question, Response, Answer
-        - Show question in smaller font
-        - Show green box or red box if answer is incorrect
-        - Show correct answer
+Phase 2
+ - [ ] Theme feature - support light, dark, color blind modes

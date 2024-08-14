@@ -11,7 +11,7 @@ export default function Home() {
         <Container className="ms-4">
           <Navbar.Brand className="text-white">
           <PiStudentBold />
-            Quiz App
+            Quiz Blitz
           </Navbar.Brand>
         </Container>
       </Navbar>

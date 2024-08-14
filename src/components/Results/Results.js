@@ -22,7 +22,6 @@ export default function Results() {
       style={{ display: "block", position: "initial" }}
     >
       <Modal.Dialog size="xl" centered>
-      <h2 className="text-center">Quiz Results</h2>
         <TableView headers={headers} data={customData} objKeys={objKeys} striped bordered />
       </Modal.Dialog>
     </div>

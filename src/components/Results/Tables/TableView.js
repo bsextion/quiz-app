@@ -1,18 +1,19 @@
 import React from "react";
-import Rows from "./Rows";
-import Header from "./Header";
 import Table from "react-bootstrap/Table";
-import { Card } from "react-bootstrap";
-import Body from "./Body";
+import TableHeader from "./TableHeader";
+import TableBody from "./TableBody";
+import TableRows from "./TableRows";
+import TableTitle from "./TableTitle";
 
 export default function TableView({ headers, data, objKeys, ...props }) {
   return (
     <>
+    <TableTitle/>
       <Table {...props}>
-        <Header headers={headers} />
-        <Body>
-          <Rows data={data} objKeys={objKeys} />
-        </Body>
+        <TableHeader headers={headers} />
+        <TableBody>
+          <TableRows data={data} objKeys={objKeys} />
+        </TableBody>
       </Table>
     </>
   );

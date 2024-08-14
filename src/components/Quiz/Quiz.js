@@ -1,20 +1,18 @@
 import React, { createContext, useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal";
-import  QuizFooter  from "./QuizFooter";
-import  QuizHeader  from "./QuizHeader";
+import QuizFooter from "./QuizFooter";
+import QuizHeader from "./QuizHeader";
 import axios from "axios";
 import _ from "lodash";
-import  Question  from "../Question/Question";
-import  Results  from "../Results/Results";
-import { decode } from 'html-entities';
+import Question from "../Question/Question";
+import Results from "../Results/Results";
+import { decode } from "html-entities";
 
 export const QuizContext = createContext();
 
 export default function Quiz() {
   //context created here - pass down current question and total question to quiz components and question components
   // useeffect to grab list of questions and corresponding answers (for now only grab 10)
-  //Add timer
-
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [totalQuestion, setTotalQuestion] = useState(0);
   const [quizData, setQuizData] = useState({});
@@ -41,15 +39,20 @@ export default function Quiz() {
   };
 
   //update selected answer to null
-  const onUpdateNext = () => {
-    //increment currentQuestion
+  const handleNext = () => {
+    const currentQuestionData = quizData[currentQuestion];
     setCurrentQuestion((prev) => prev + 1);
-
   };
 
-  const onSubmit = () => {
-    setIsSubmitted(true)
-    console.log("Is submitted? ", isSubmitted)
+  const handlePrevious = () => {
+    const currentQuestionData = quizData[currentQuestion];
+    setCurrentQuestion((prev) => prev - 1);
+  };
+
+
+  const handleSubmit = () => {
+    setIsSubmitted(true);
+    console.log("Is submitted? ", isSubmitted);
   };
 
   useEffect(() => {
@@ -59,7 +62,9 @@ export default function Quiz() {
         const transformedData = res.data.results.map((item) => ({
           question: decode(item.question),
           correct_answer: decode(item.correct_answer),
-          answers: _.shuffle(decode([...item.incorrect_answers, item.correct_answer])),
+          answers: _.shuffle(
+            decode([...item.incorrect_answers, item.correct_answer])
+          ),
           selected_answer: null,
         }));
         setQuizData(transformedData);
@@ -76,22 +81,24 @@ export default function Quiz() {
         currentQuestion,
         totalQuestion,
         onUpdateAnswer,
-        onUpdateNext,
-        onSubmit,
+        handleNext,
+        handlePrevious,
+        handleSubmit,
         setCurrentQuestion,
         quizData,
       }}
     >
       {totalQuestion === 0 ? (
         <h1>Fetching Questions...</h1>
+      ) : isSubmitted ? (
+        <Results />
       ) : (
-        isSubmitted ? <Results/> :
         <div
           className="modal show"
           style={{ display: "block", position: "initial" }}
         >
           <Modal.Dialog size="xl" centered>
-            <QuizHeader />
+            <QuizHeader  />
             <Question />
             <QuizFooter />
           </Modal.Dialog>
@@ -99,4 +106,4 @@ export default function Quiz() {
       )}
     </QuizContext.Provider>
   );
-};
+}

@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Header({ headers }) {
+export default function TableHeader({ headers }) {
   return (
     <thead>
       <tr>

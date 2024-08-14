@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Body({children}) {
+export default function TableBody({children}) {
   return (
     <tbody>
         {children}
