@@ -1,5 +1,6 @@
 import React from "react";
 import { Card, ListGroup, ProgressBar } from "react-bootstrap";
+import constants from '../../constants/constants.json';
 
 export default function ({ questionData, onUpdateAnswer, currentQuestion }) {
   const { question, answers, selected_answer } = questionData;
@@ -11,7 +12,7 @@ export default function ({ questionData, onUpdateAnswer, currentQuestion }) {
       <Card.Body>
         <Card.Title>{currentQuestion + 1}. {question}</Card.Title>
         <Card.Subtitle className="mb-2 text-muted">
-          Please choose from one of the following:
+          {constants.global.card_subtitle_question}
         </Card.Subtitle>
         <ListGroup className="list-group">
           {answers.map((answer, index) => (

@@ -7,8 +7,8 @@ import _ from "lodash";
 import Question from "../Question/Question";
 import Results from "../Results/Results";
 import { decode } from "html-entities";
-import { Button } from "react-bootstrap";
-import Message from "@/common/Message/Message";
+import Alert from "@/common/Alert";
+import constants from '../../constants/constants.json';
 
 export const QuizContext = createContext();
 
@@ -57,19 +57,17 @@ export default function Quiz() {
   };
 
   const handleSubmit = () => {
-    const allQuestionsAnswered = quizData.every(question => question.selected_answer !== null);
+    const allQuestionsAnswered = quizData.every(
+      (question) => question.selected_answer !== null
+    );
 
-    if (!allQuestionsAnswered && !showMessage){
-      setShowMessage(true)
+    if (!allQuestionsAnswered && !showMessage) {
+      setShowMessage(true);
       return;
     }
-    
+
     setIsSubmitted(true);
   };
-
-  // const totalAnswered = quizData.filter((question) => {
-  //   return question.selected_answer !== null;
-  // });
 
   useEffect(() => {
     axios
@@ -106,7 +104,7 @@ export default function Quiz() {
       }}
     >
       {totalQuestion === 0 ? (
-        <h1>Fetching Questions...</h1>
+        <h1>{constants.global.loading_message_questions}</h1>
       ) : isSubmitted ? (
         <Results />
       ) : (
@@ -119,16 +117,19 @@ export default function Quiz() {
             <Question />
             <QuizFooter />
           </Modal.Dialog>
-          
-            <Message
-              title="Unanswered Questions"
-              body="You have unanswered questions. Are you sure you want to submit the
-            quiz?"
+
+          <Alert
+            title={constants.global.alert_warning_title_unanswered}
+            body={constants.global.alert_warning_body_unanswered}
             show={showMessage}
-            handleCancel={() => {setShowMessage(false)}}
-            handleSubmit={handleSubmit}
-            />
-          
+          >
+            <Alert.Button variant="secondary" onClick={() => {setShowMessage(false)}}>
+              {constants.global.button_message_cancel}
+            </Alert.Button>
+            <Alert.Button variant="primary" onClick={handleSubmit}>
+              {constants.global.button_message_ok}
+            </Alert.Button>
+          </Alert>
         </div>
       )}
     </QuizContext.Provider>

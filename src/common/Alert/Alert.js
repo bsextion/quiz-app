@@ -1,7 +1,11 @@
 import React from "react";
-import { Button, Modal } from "react-bootstrap";
 
-export default function Message({ title = "", body = "", show = false, handleCancel = () => {}, handleSubmit = () => {} }) {
+export default function Alert({
+  title = "",
+  body = "",
+  show = false,
+  children,
+}) {
   return (
     <>
       {show && (
@@ -22,18 +26,9 @@ export default function Message({ title = "", body = "", show = false, handleCan
             className="modal show"
             style={{ display: "block", position: "fixed", zIndex: 1070 }} // zIndex is higher than the overlay to ensure it appears on top
           >
-            <Modal.Dialog>
-              <Modal.Header>
-                <Modal.Title>{title}</Modal.Title>
-              </Modal.Header>
-              <Modal.Body>
-                {body}
-              </Modal.Body>
-              <Modal.Footer>
-                <Button variant="secondary" onClick={handleCancel}>Cancel</Button>
-                <Button variant="primary" onClick={handleSubmit}>Ok</Button>
-              </Modal.Footer>
-            </Modal.Dialog>
+            <Alert.Content title={title} body={body}>
+              {children}
+            </Alert.Content>
           </div>
         </>
       )}

@@ -2,8 +2,8 @@ import React from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import { QuizContext } from "./Quiz";
-import Toast from "react-bootstrap/Toast";
 import Pagination from "@/common/Pagination";
+import constants from '../../constants/constants.json';
 
 export default function QuizFooter() {
   const {
@@ -38,13 +38,13 @@ export default function QuizFooter() {
           onClick={handlePrevious}
           disabled={showPrevious}
         >
-          Previous
+          {constants.global.button_message_previous}
         </Button>
         <Button variant="primary" onClick={handleNext} disabled={showNext}>
-          Next
+        {constants.global.button_message_next}
         </Button>
         <Button variant="warning" onClick={handleSubmit} >
-          Submit
+        {constants.global.button_message_submit}
         </Button>
       </Modal.Footer>
     </>
