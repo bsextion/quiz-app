@@ -1,0 +1,67 @@
+.dot-controls {
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: center; /* Center horizontally */
+   align-items: center; /* Center vertically */
+   margin: 0 auto;
+ }
+ 
+ .dot {
+   --size: .6rem;
+   --gap: 1rem;
+   --border: 0.25rem;
+   --dur: 200ms;
+   --tf: cubic-bezier(0.215, 0.61, 0.355, 1);
+   --rgb: 30, 144, 255;
+   --color: rgba(var(--rgb), 0.5);
+   --color-adjacent: rgba(var(--rgb), 0.8);
+   --color-active: rgba(var(--rgb), 1);
+   --color-active-inner: white;
+   
+   flex: 0 0 auto;
+   display: block;
+   position: relative;
+   cursor: pointer;
+   margin: var(--gap);
+   width: var(--size);
+   height: var(--size);
+   background-color: var(--color);
+   border-radius: 100%;
+   transform-origin: 50% 100%;
+   transition: calc(var(--dur) * 2) var(--tf);
+   transition-property: transform, background-color;
+   
+   &:before {
+     content: '';
+     position: absolute;
+     top: var(--border);
+     left: var(--border);
+     width: calc(100% - var(--border) * 2);
+     height: calc(100% - var(--border) * 2);
+     background-color: var(--color-active-inner);
+     border-radius: inherit;
+     transform: scale(0.001);
+     transition: transform var(--dur) var(--tf);
+   }
+   
+   &:hover {
+     background-color: var(--color-active);
+   }
+   
+   &.previous,
+   &.next {
+     transform: scale(1.25);
+     background-color: var(--color-adjacent);
+   }
+   
+   &.active {
+     transform: scale(1.5);
+     background-color: var(--color-active);
+     
+     &:before {
+       transform: scale(1.001);
+       transition-delay: var(--dur);
+     }
+   }
+ }
+ 

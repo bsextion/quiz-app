@@ -1,8 +1,7 @@
 import React from "react";
-import { Card, ListGroup } from "react-bootstrap";
-import { QuizContext } from "../Quiz/Quiz";
+import { Card, ListGroup, ProgressBar } from "react-bootstrap";
 
-export default function ({ questionData, onUpdateAnswer }) {
+export default function ({ questionData, onUpdateAnswer, currentQuestion }) {
   const { question, answers, selected_answer } = questionData;
   const isAnswerSelected = selected_answer != null ? true : false;
   const selectedAnswerStyle = "bg-light text-primary border border-primary rp ";
