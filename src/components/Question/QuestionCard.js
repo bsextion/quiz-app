@@ -10,7 +10,7 @@ export default function ({ questionData, onUpdateAnswer }) {
   return (
     <Card>
       <Card.Body>
-        <Card.Title>{question}</Card.Title>
+        <Card.Title>{currentQuestion + 1}. {question}</Card.Title>
         <Card.Subtitle className="mb-2 text-muted">
           Please choose from one of the following:
         </Card.Subtitle>
