@@ -3,8 +3,7 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import { QuizContext } from "./Quiz";
 import Toast from "react-bootstrap/Toast";
-import PaginationDot from "@/common/Pagination/PaginationDot";
-import Pagination from "@/common/Pagination/Pagination";
+import Pagination from "@/common/Pagination";
 
 export default function QuizFooter() {
   const {
@@ -26,7 +25,7 @@ export default function QuizFooter() {
       <Modal.Footer>
         <Pagination>
           {quizData.map((question, index) => (
-            <PaginationDot
+            <Pagination.Dot
               key={index}
               color={question.selected_answer ? "primary" : "secondary"}
               active={currentQuestion == index ? "active" : ""}

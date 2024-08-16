@@ -9,7 +9,7 @@ export default function TableTitle() {
       >
         <h2 className="flex-grow-1 text-center">Quiz Results</h2>
         <h2 className="position-absolute" style={{ right: "5%" }}>
-          <GradeView/>
+          {/* <GradeView/> */}
         </h2>
       </div>
     </>
