@@ -8,7 +8,8 @@ import Question from "../Question/Question";
 import Results from "../Results/Results";
 import { decode } from "html-entities";
 import Alert from "@/common/Alert";
-import constants from '../../constants/constants.json';
+import constants from "../../constants/constants.json";
+import { API_BASE_URL, API_ENDPOINTS } from "@/constants/endpoints";
 
 export const QuizContext = createContext();
 
@@ -71,7 +72,7 @@ export default function Quiz() {
 
   useEffect(() => {
     axios
-      .get("https://opentdb.com/api.php?amount=10&type=multiple")
+      .get(API_ENDPOINTS.GET_QUESTIONS())
       .then((res) => {
         const transformedData = res.data.results.map((item) => ({
           question: decode(item.question),
@@ -123,7 +124,12 @@ export default function Quiz() {
             body={constants.global.alert_warning_body_unanswered}
             show={showMessage}
           >
-            <Alert.Button variant="secondary" onClick={() => {setShowMessage(false)}}>
+            <Alert.Button
+              variant="secondary"
+              onClick={() => {
+                setShowMessage(false);
+              }}
+            >
               {constants.global.button_message_cancel}
             </Alert.Button>
             <Alert.Button variant="primary" onClick={handleSubmit}>
