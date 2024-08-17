@@ -114,11 +114,19 @@ export default function Quiz() {
         quizData,
       }}
     >
-      {/* {totalQuestion === 0 ? (
-        <h1>{constants.global.loading_message_questions}</h1>
-      ) : isSubmitted ? (
-        <Results />
-      ) : (
+      {isLoading && (
+        <div className="text-center">
+          <h1>{constants.global.loading_message_questions}</h1>
+          <Spinner animation="border" />
+        </div>
+      )}
+      {error && (
+        <div className="text-center">
+          <h1>{constants.global.error_message_questions}</h1>
+        </div>
+      )}
+      {!error && totalQuestion > 0 && isSubmitted && <Results />}
+      {!error && totalQuestion > 0 && !isSubmitted && (
         <div
           className="modal show"
           style={{ display: "block", position: "initial", zIndex: 1050 }}
@@ -147,38 +155,7 @@ export default function Quiz() {
             </Alert.Button>
           </Alert>
         </div>
-      )} */}
-      {isLoading && <div className="text-center"><h1>{constants.global.loading_message_questions}</h1><Spinner animation="border" /></div>}
-      {error && <div className="text-center"><h1>{constants.global.error_message_questions}</h1></div>}
-      {totalQuestion > 0 && isSubmitted && <Results/> }
-      {totalQuestion > 0 && !isSubmitted && <div
-          className="modal show"
-          style={{ display: "block", position: "initial", zIndex: 1050 }}
-        >
-          <Modal.Dialog size="xl" centered>
-            <QuizHeader />
-            <Question />
-            <QuizFooter />
-          </Modal.Dialog>
-
-          <Alert
-            title={constants.global.alert_warning_title_unanswered}
-            body={constants.global.alert_warning_body_unanswered}
-            show={showMessage}
-          >
-            <Alert.Button
-              variant="secondary"
-              onClick={() => {
-                setShowMessage(false);
-              }}
-            >
-              {constants.global.button_message_cancel}
-            </Alert.Button>
-            <Alert.Button variant="primary" onClick={handleSubmit}>
-              {constants.global.button_message_ok}
-            </Alert.Button>
-          </Alert>
-        </div>}
+      )}
       {}
     </QuizContext.Provider>
   );

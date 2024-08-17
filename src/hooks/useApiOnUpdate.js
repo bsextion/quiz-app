@@ -8,17 +8,16 @@ export const useApiOnUpdate = (url, transformFunction, deps = []) => {
   const [error, setError] = useState(null);
 
   const fetchData = async () => {
-    console.log("Calling fetch data from custom hook");
     setIsLoading(true);
 
     try {
       const response = await axios(url);
-      console.log("Running fetchData: ", response.data);
-
       const transformedData = transformFunction(response.data);
+
       setData(transformedData);
     } catch (error) {
       console.log("Caught Error: ", error);
+
       setError(error);
     }
 
@@ -28,12 +27,11 @@ export const useApiOnUpdate = (url, transformFunction, deps = []) => {
   useEffect(() => {
     if (firstRender.current) {
       firstRender.current = false;
-    }
-    else {
+    } else {
       fetchData();
     }
 
-  fetchData()
+    fetchData();
   }, deps);
   return { data, isLoading, error };
 };
