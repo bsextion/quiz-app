@@ -9,6 +9,7 @@
     "button_message_submit": "Submit",
     "card_subtitle_question": "Please choose from one of the following:",
     "loading_message_questions": "Fetching Questions...",
+    "error_message_questions": "Error fetching Questions. Please try again.",
     "table_header_results" : "Quiz Results",
     "table_headers_question" : "Question",
     "table_headers_response" : "Response",
