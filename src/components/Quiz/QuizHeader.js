@@ -3,7 +3,7 @@ import Modal from "react-bootstrap/Modal";
 import { QuizContext } from "../Quiz/Quiz";
 
 export default function QuizHeader() {
-  const { currentQuestion, totalQuestion, quizData } =
+  const { currentQuestion, quizData } =
     React.useContext(QuizContext);
 
 

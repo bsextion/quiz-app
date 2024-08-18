@@ -4,7 +4,7 @@ import QuestionCard from "./QuestionCard";
 import { QuizContext } from "../Quiz/Quiz";
 
 export default function Question() {
-  const { quizData, currentQuestion, onUpdateAnswer } =
+  const { quizData, currentQuestion, updateSelectedAnswer } =
     React.useContext(QuizContext);
   const questionData = quizData[currentQuestion];
 
@@ -12,7 +12,7 @@ export default function Question() {
     <Modal.Body>
       <QuestionCard
         questionData={questionData}
-        onUpdateAnswer={onUpdateAnswer}
+        onUpdateAnswer={updateSelectedAnswer}
         currentQuestion={currentQuestion}
       >
       </QuestionCard>

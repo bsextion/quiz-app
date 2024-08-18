@@ -1,64 +1,86 @@
-import React, { createContext, use, useEffect, useState } from "react";
-import Modal from "react-bootstrap/Modal";
+import React, { createContext, useEffect, useState } from "react";
 import QuizFooter from "./QuizFooter";
 import QuizHeader from "./QuizHeader";
-import axios from "axios";
-import _ from "lodash";
 import Question from "../Question/Question";
 import Results from "../Results/Results";
 import { decode } from "html-entities";
 import Alert from "@/common/Alert";
 import constants from "../../constants/constants.json";
-import { API_BASE_URL, API_ENDPOINTS } from "@/constants/endpoints";
+import { API_ENDPOINTS } from "@/constants/endpoints";
 import { useApiOnUpdate } from "@/hooks/useApiOnUpdate";
-import { Spinner } from "react-bootstrap";
+import { Spinner, Modal } from "react-bootstrap";
 
 export const QuizContext = createContext();
 
 export default function Quiz() {
-  //context created here - pass down current question and total question to quiz components and question components
-  // useeffect to grab list of questions and corresponding answers (for now only grab 10)
-
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [totalQuestion, setTotalQuestion] = useState(0);
   const [quizData, setQuizData] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
+  const [triggerNewQuiz, setTriggerNewQuiz] = useState(0);
+
+  const shuffle = (array) => {
+    // Create a copy of the array
+    let arrayCopy = array.slice();
+    let currentIndex = arrayCopy.length,
+      randomIndex;
+
+    // While there remain elements to shuffle...
+    while (currentIndex != 0) {
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+
+      // And swap it with the current element.
+      [arrayCopy[currentIndex], arrayCopy[randomIndex]] = [
+        arrayCopy[randomIndex],
+        arrayCopy[currentIndex],
+      ];
+    }
+
+    return arrayCopy;
+  };
+
+  const retakeQuiz = () => { 
+    const shuffledQuizData = shuffle(quizData);
+    const quizDataShuffledAnswers = shuffledQuizData.map((question) => {
+      return { ...question, answers: shuffle(question.answers), selected_answer: null };
+    });
+    setQuizData(quizDataShuffledAnswers);
+    updateCurrentQuestion();
+    setShowMessage(false);
+    setIsSubmitted(false);
+
+  };
 
   const transformQuizData = (data) => {
-    console.log("In the transform Data:", data.results);
     const transformedQuizData = data.results.map((item) => ({
       question: decode(item.question),
       correct_answer: decode(item.correct_answer),
-      answers: _.shuffle(
-        decode([...item.incorrect_answers, item.correct_answer])
+      answers: shuffle(
+        [...item.incorrect_answers, item.correct_answer].map((answer) =>
+          decode(answer)
+        )
       ),
       selected_answer: null,
     }));
-
-    console.log("Transformed the data:", transformedQuizData);
     return transformedQuizData;
   };
 
   const { error, data, isLoading } = useApiOnUpdate(
     API_ENDPOINTS.GET_QUESTIONS(),
-    transformQuizData
+    transformQuizData,
+    [triggerNewQuiz]
   );
 
   useEffect(() => {
     if (data) {
       setQuizData(data);
-      setTotalQuestion(data.length);
     }
   }, [data]);
 
-  //update selected answer
-  const onUpdateAnswer = (selected) => {
+  const updateSelectedAnswer = (selected) => {
     const currentQuestionData = quizData[currentQuestion];
-
-    //answer is already selected, we want to deselect
-
-    //update selected answer in current question
     const updatedQuestionData = {
       ...currentQuestionData,
       selected_answer:
@@ -73,7 +95,7 @@ export default function Quiz() {
     });
   };
 
-  const onUpdateCurrentQuestion = (index) => {
+  const updateCurrentQuestion = (index = 0) => {
     setCurrentQuestion((prev) => index);
   };
 
@@ -96,21 +118,29 @@ export default function Quiz() {
       setShowMessage(true);
       return;
     }
-
     setIsSubmitted(true);
+  };
+
+  const handleRetake = () => {
+    retakeQuiz();
+  };
+
+  const handleNewQuiz = () => {
+    setTriggerNewQuiz((prev) => prev + 1);
   };
 
   return (
     <QuizContext.Provider
       value={{
         currentQuestion,
-        totalQuestion,
-        onUpdateAnswer,
+        updateSelectedAnswer,
         handleNext,
         handlePrevious,
         handleSubmit,
+        handleRetake,
+        handleNewQuiz,
         setCurrentQuestion,
-        onUpdateCurrentQuestion,
+        updateCurrentQuestion,
         quizData,
       }}
     >
@@ -125,8 +155,8 @@ export default function Quiz() {
           <h1>{constants.global.error_message_questions}</h1>
         </div>
       )}
-      {!error && totalQuestion > 0 && isSubmitted && <Results />}
-      {!error && totalQuestion > 0 && !isSubmitted && (
+      {!error && quizData.length > 0 && isSubmitted && <Results />}
+      {!error && quizData.length > 0 && !isSubmitted && (
         <div
           className="modal show"
           style={{ display: "block", position: "initial", zIndex: 1050 }}

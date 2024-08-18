@@ -2,7 +2,6 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 export const useApiOnUpdate = (url, transformFunction, deps = []) => {
-  const firstRender = React.useRef(true);
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -25,13 +24,8 @@ export const useApiOnUpdate = (url, transformFunction, deps = []) => {
   };
 
   useEffect(() => {
-    if (firstRender.current) {
-      firstRender.current = false;
-    } else {
-      fetchData();
-    }
-
     fetchData();
+    console.log('Data fetched')
   }, deps);
   return { data, isLoading, error };
 };

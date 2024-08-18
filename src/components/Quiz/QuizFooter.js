@@ -11,13 +11,12 @@ export default function QuizFooter() {
     handlePrevious,
     handleSubmit,
     currentQuestion,
-    totalQuestion,
     quizData,
-    onUpdateCurrentQuestion,
+    updateCurrentQuestion,
   } = React.useContext(QuizContext);
 
   //if on last question and selected answers are all answered
-  const showNext = currentQuestion + 1 === totalQuestion;
+  const showNext = currentQuestion + 1 === quizData.length;
   const showPrevious = currentQuestion === 0;
 
   return (
@@ -29,7 +28,7 @@ export default function QuizFooter() {
               key={index}
               color={question.selected_answer ? "primary" : "secondary"}
               active={currentQuestion == index ? "active" : ""}
-              onClick={() => onUpdateCurrentQuestion(index)}
+              onClick={() => updateCurrentQuestion(index)}
             />
           ))}
         </Pagination>
