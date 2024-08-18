@@ -53,6 +53,12 @@ export default function Quiz() {
 
   };
 
+  const takeNewQuiz = () => { 
+    setTriggerNewQuiz((prev) => prev + 1);
+
+
+  };
+
   const transformQuizData = (data) => {
     const transformedQuizData = data.results.map((item) => ({
       question: decode(item.question),
@@ -126,7 +132,9 @@ export default function Quiz() {
   };
 
   const handleNewQuiz = () => {
-    setTriggerNewQuiz((prev) => prev + 1);
+    takeNewQuiz();
+    setShowMessage(false)
+    setIsSubmitted(false)
   };
 
   return (
@@ -155,8 +163,8 @@ export default function Quiz() {
           <h1>{constants.global.error_message_questions}</h1>
         </div>
       )}
-      {!error && quizData.length > 0 && isSubmitted && <Results />}
-      {!error && quizData.length > 0 && !isSubmitted && (
+      {!error && isSubmitted && <Results />}
+      {!error && !isSubmitted && !isLoading && quizData.length > 0 && (
         <div
           className="modal show"
           style={{ display: "block", position: "initial", zIndex: 1050 }}

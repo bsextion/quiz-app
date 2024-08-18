@@ -5,7 +5,7 @@ import constants from "../../constants/constants.json";
 import { Button, Modal } from "react-bootstrap";
 
 export default function Results() {
-  const { quizData, handleRetake } = React.useContext(QuizContext);
+  const { quizData, handleRetake, handleNewQuiz } = React.useContext(QuizContext);
   const headers = [
     constants.global.table_headers_question,
     constants.global.table_headers_response,
@@ -39,7 +39,7 @@ export default function Results() {
         />
         <Modal.Footer className="d-flex justify-content-center">
           <Button onClick={handleRetake}>Retake Quiz</Button>
-          <Button>New Quiz</Button>
+          <Button onClick={handleNewQuiz}>New Quiz</Button>
         </Modal.Footer>
       </Modal.Dialog>
     </div>
