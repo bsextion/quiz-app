@@ -1,21 +1,11 @@
-
-import Container from "react-bootstrap/Container";
-import { PiStudentBold } from "react-icons/pi";
-import { Navbar } from "react-bootstrap";
-import Quiz from "@/components/Quiz/Quiz";
+import Quiz from "@/components/Panels/Quiz/Quiz";
+import Navigation from "@/components/Panels/Navigation/Navigation";
 
 export default function Home() {
   return (
     <>
-     <Navbar className="bg-dark">
-        <Container className="ms-4">
-          <Navbar.Brand className="text-white">
-          <PiStudentBold />
-            Quiz Blitz
-          </Navbar.Brand>
-        </Container>
-      </Navbar>
-    <Quiz/>
+      <Navigation />
+      <Quiz />
     </>
   );
 }

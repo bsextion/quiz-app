@@ -7,19 +7,23 @@
     "button_message_ok": "Ok",
     "button_message_previous": "Previous",
     "button_message_submit": "Submit",
+    "button_message_retake": "Retake Quiz",
+    "button_message_new": "New Quiz",
     "card_subtitle_question": "Please choose from one of the following:",
     "loading_message_questions": "Loading...",
     "error_message_questions": "Error fetching Questions. Please try again.",
     "table_header_results" : "Quiz Results",
-    "table_headers_question" : "Question",
-    "table_headers_response" : "Response",
-    "table_headers_correct" : "Correct Answer"
+    "table_header_question" : "Question",
+    "table_header_response" : "Response",
+    "table_header_correct" : "Correct Answer"
 },
 
-"keys": {
+"key": {
+    "answers": "answers",
     "question": "question",
     "selected_answer" : "selected_answer",
-    "correct_answer": "correct_answer"
+    "correct_answer": "correct_answer",
+    "incorrect_answers": "incorrect_answers"
 }
 
 }
