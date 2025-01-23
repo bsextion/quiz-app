@@ -45,18 +45,18 @@
    }
    
    &:hover {
-     background-color: var(--color-active);
+     background-color: #5b25c0;
    }
    
    &.previous,
    &.next {
      transform: scale(1.25);
-     background-color: var(--color-adjacent);
+     background-color: #7d7d7d;
    }
    
    &.active {
      transform: scale(1.5);
-     background-color: var(--color-active);
+     background-color: #5b25c0;
      
      &:before {
        transform: scale(1.001);

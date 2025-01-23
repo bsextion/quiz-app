@@ -1,0 +1,65 @@
+$modes: (
+  white-100: #ffffff,
+  white-200: #f1f3f4,
+  gray-100: #7d7d7d,
+  gray-200: #343a40,
+  gray-300: #262c36,
+  gray-400: #191d23,
+  gray-500: #0d0f11,
+  violet-100: #7b57e0,
+  violet-200: #5b25c0,
+  green-100: #47a785,
+  blue-100: #5395cf,
+  yellow-100: #efb047,
+  yellow-200: #dfa137,
+  red-100: #f9837c,
+);
+
+$gradient: linear-gradient(rgba(#191d23, 0.15), rgba(#7b57e0, 0));
+
+// Example: Looping through all grayscale variables
+@each $name, $color in $modes {
+  .bg-#{$name} {
+    background-color: $color;
+  }
+
+  .text-#{$name} {
+    color: $color;
+  }
+
+  .border-#{$name} {
+    border-color: $color;
+  }
+
+  .text-icon {
+    font-family: "Exo", sans-serif;
+  }
+
+  .icon-color {
+    color: #5b25c0;
+  }
+
+  .button-primary {
+    background-color: #7b57e0;
+    border-color: #5b25c0;
+
+    &:hover,
+    &:disabled, &:focus, &:active {
+      background-color: #5b25c0;
+      border-color: #5b25c0;
+      box-shadow: none;
+    }
+  }
+
+  .button-warning {
+    background-color: #efb047;
+    border-color: #dfa137;
+
+    &:hover,
+    &:disabled, &:focus, &:active {
+      background-color: #dfa137;
+      border-color: #dfa137;
+    }
+  }
+
+}

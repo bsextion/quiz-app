@@ -1,6 +1,6 @@
 import Alert from "./Alert";
-import AlertButton from "./AlertButton/AlertButton";
-import AlertButtonGroup from "./AlertButton/AlertButtonGroup";
+import AlertButton from "./alert-button/AlertButton";
+import AlertButtonGroup from "./alert-button/AlertButtonGroup";
 import AlertContent from "./AlertContent";
 
 Alert.Button = AlertButton

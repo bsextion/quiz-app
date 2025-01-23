@@ -1,12 +1,13 @@
 import React from "react";
-import constants from "../../../constants/constants.json";
-import { QuizContext } from "./Quiz";
-import Panel from "@/common/Panel/Panel";
-import { Button, Table } from "react-bootstrap";
+import constants from "@/constants/constants.json";
+import { Button, Modal, Table } from "react-bootstrap";
 import { FaX } from "react-icons/fa6";
-import PanelFooter from "@/common/Panel/PanelFooter";
+import { QuizContext } from "../Quiz";
+import { useTheme } from "@/components/theme/ThemeProvider";
 
 export default function Results({ handleNewQuiz, handleRetakeQuiz }) {
+    const { theme } = useTheme();
+
   const { quizData } = React.useContext(QuizContext);
   const headers = [
     constants.global.table_header_question,
@@ -31,8 +32,7 @@ export default function Results({ handleNewQuiz, handleRetakeQuiz }) {
       className="modal show"
       style={{ display: "block", position: "initial" }}
     >
-  <Panel size="xl" centered>
-    {/* Table title here  */}
+  <Modal.Dialog size="xl" centered>
     <Table striped bordered>
       <thead>
         <tr>
@@ -70,15 +70,15 @@ export default function Results({ handleNewQuiz, handleRetakeQuiz }) {
         ))}
       </tbody>
     </Table>
-    <PanelFooter className="d-flex justify-content-center">
-      <Button onClick={handleRetakeQuiz}>
+    <Modal.Footer className="d-flex justify-content-center">
+      <Button className={theme.button.primary} onClick={handleRetakeQuiz}>
         {constants.global.button_message_retake}
       </Button>
-      <Button onClick={handleNewQuiz}>
+      <Button className={theme.button.primary} onClick={handleNewQuiz}>
         {constants.global.button_message_new}
       </Button>
-    </PanelFooter>
-  </Panel>
+    </Modal.Footer>
+  </Modal.Dialog>
   </div>
   )
 }
