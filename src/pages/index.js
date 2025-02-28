@@ -1,12 +1,11 @@
-import Quiz from "@/components/quiz/Quiz";
-import Navigation from "@/components/navigation/Navigation";
-import { ThemeProvider } from "@/components/theme/ThemeProvider";
+import Quiz from "@/components/Panels/Quiz/Quiz";
+import Navigation from "@/components/Panels/Navigation/Navigation";
 
 export default function Home() {
   return (
-    <ThemeProvider>
+    <>
       <Navigation />
       <Quiz />
-      </ThemeProvider>
+    </>
   );
 }

@@ -15,6 +15,8 @@ export const useApiOnUpdate = (url, transformFunction, deps = []) => {
 
       setData(transformedData);
     } catch (error) {
+      console.log("Caught Error: ", error);
+
       setError(error);
     }
 
@@ -23,6 +25,7 @@ export const useApiOnUpdate = (url, transformFunction, deps = []) => {
 
   useEffect(() => {
     fetchData();
+    console.log('Data fetched')
   }, deps);
   return { data, isLoading, error };
 };
